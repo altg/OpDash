@@ -70,6 +70,7 @@ var showSheet = function( sheetName ) {
 		workbook = viz.getWorkbook();
 		activeSheet = workbook.getActiveSheet();
 		$("#ResetBTN").removeClass("disabled");
+		$("#PDFBTN").removeClass("disabled");
 		}
 	}
 	
@@ -130,6 +131,7 @@ var showMenuSheet = function( workbookName, sheetName ) {
 		workbook = viz.getWorkbook();
 		activeSheet = workbook.activateSheetAsync( sheetName );
 		$("#ResetBTN").removeClass("disabled");
+		$("#PDFBTN").removeClass("disabled");
 		}
 	}
 	
@@ -183,6 +185,22 @@ var resetViz = function(){
 	
 	
 }
+
+
+var resetViz2 = function(){
+
+	viz.revertAllAsync();
+
+}
+
+var ViztoPDF = function(){
+	
+	viz.showExportPDFDialog();
+	
+}
+
+
+
 
 var modalClosed = function(){
 	
