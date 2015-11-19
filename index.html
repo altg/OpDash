@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Operations Complex Dashboards</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="sticky-footer-navbar.css" rel="stylesheet"> -->
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+  <!--   <nav class="navbar navbar-default navbar-fixed-top"> -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		    <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+         <!--  <a class="navbar-brand" href="#" onClick='starthereClicked()' data-toggle="modal" data-target="#myModal" style='color:#FFFFFF' >Start Here</a> -->
+		
+		<!--  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+			Welcome </button> -->
+			
+		  
+        </div>
+        <!-- <div id="navbar" class="collapse navbar-collapse"> -->
+		 <div id="navbar" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+          <ul class="nav navbar-nav">
+            <li  id="Approvals" ><a href="#" onclick="showSheet('Approvals')">Approvals</a></li>
+			<li  id="Disbursements" ><a href="#" onclick="showSheet('Disbursements')">Disbursements</a></li>
+           
+			<li class="dropdown" id="Portfolio">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >Portfolio<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" onclick="showMenuSheet('Portfolio' , 'Overview')">Overview</a></li>
+                <li><a href="#" onclick="showMenuSheet('Portfolio' , 'Detailed Analysis')">Detailed Analysis</a></li>
+              </ul>
+            </li>
+			
+			
+			<li class="dropdown" id="CUC">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">CUC<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" onclick="showMenuSheet('CUC' , 'CUC overview')">Overview</a></li>
+                <li><a href="#" onclick="showMenuSheet('CUC' , 'CUC Ratios')">CUC Ratios</a></li>
+              </ul>
+            </li>
+			
+			
+			<li class="dropdown" id="HELP">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#" data-toggle="modal" data-target="#helpModal" >Help</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#aboutModal" >About</a></li>
+              </ul>
+            </li>
+								
+			<li><a href="#" onclick="resetViz()" class="disabled" id="ResetBTN" >Reset</a></li>	
+			
+           
+			
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="page-header">
+		<p style='color:#FFFFFF'>Developed by  Altaf Abdul Gaffar - amag</p>
+        <h1 id="mytopline" >Operations Complex Dashboards</h1>
+      </div>
+     <!--  <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body > .container</code>.</p>
+       -->
+	 
+	    <div class="main-placeholder">
+		<p class="lead">Select a Dashboard from the navigation menu to view.</p>
+	  	</div>
+		<div class="viz-container">
+		<div id='viz'></div>
+		</div>	   
+	   
+    </div>
+	
+	
+	<!-- OC Dash Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">OC Dashboards</h4>
+      </div>
+      <div class="modal-body">
+        <p>The OC dashboards were developed with the aim of providing a quick one-stop solution to access the data related to Operations. </p>
+		<p>
+		<p>If prompted please use the following username and password</p>
+		<p>
+		<dl class="dl-horizontal">
+        <dt>User Name</dt>
+		<dd>opsd</dd>
+		<dt>Password</dt>
+		<dd>opsd123</dd>
+		</dl>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onClick ="modalClosed()" >Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+	<!-- Help Modal -->
+<div class="modal" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Help</h4>
+      </div>
+      <div class="modal-body">
+	  <ul>
+        <li>Use the navigation bar at the top to select the Dashboard required. </li>
+		<li>Click within the dashboards to explore further. </li>
+	</ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+	<!-- About Modal -->
+<div class="modal" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">About OC Dashboards</h4>
+      </div>
+      <div class="modal-body">
+	  <p>OC Dashboards developed by ORM-OPSD. Developed on <a href="tableau.com">Tableau Software</a>.</p>
+	  <p>
+	  <p> These dashboards use the data from the following systems</p>
+	  <ul>
+	  <li>PMP System (core project data)</li>
+	  <li>SAP-CML (for disbursement data)</li>
+	  <li>OFIS (for legacy data)</li>
+	  </ul>
+	  <p>The support extended by the GBEST Program by the provision of software is also acknowledged.</p>
+	  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+	
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">ORM-OPSD  Islamic Development Bank</p>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script type="text/javascript" src="http://tabsrv/javascripts/api/tableau-2.0.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+	<script src="mainscript.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  </body>
+</html>
