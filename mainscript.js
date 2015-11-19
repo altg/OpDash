@@ -8,6 +8,8 @@ var main = function() {
 	tabsrvURL = "http://tabsrv/trusted/"
 	
 	current_WB = "";
+	
+	vizURL = "";
 }
 
 var starthereClicked = function()
@@ -20,7 +22,11 @@ var starthereClicked = function()
 
 var showSheet = function( sheetName ) {
 	
-	$('#mytopline').text( sheetName );
+	//$('#mytopline').text( sheetName );
+	
+	$('#mytopline').hide();
+	
+	//$('#mypageheader').hide();
 	
 	$('.main-placeholder').hide();
 	
@@ -70,8 +76,8 @@ var showSheet = function( sheetName ) {
 	
 	$.get( "gen_tabsrvkey.aspx", function( data ) {
 		
-	vizURL = tabsrvURL +  data	+ vizURL;
-	viz = new tableau.Viz(vizDiv,vizURL, vizOptions);
+	vizURL2 = tabsrvURL +  data	+ vizURL;
+	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
 	
 	current_WB = new_WB;
 	
@@ -131,8 +137,8 @@ var showMenuSheet = function( workbookName, sheetName ) {
 	
 	$.get( "gen_tabsrvkey.aspx", function( data ) {
 		
-	vizURL = tabsrvURL +  data	+ vizURL;
-	viz = new tableau.Viz(vizDiv,vizURL, vizOptions);
+	vizURL2 = tabsrvURL +  data	+ vizURL;
+	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
 	
 	current_WB = new_WB;
 	});
@@ -164,7 +170,16 @@ var resetViz = function(){
 	
 	vizDiv = $('#viz')[0];
 	
-	viz = new tableau.Viz(vizDiv,vizURL, vizOptions);
+	//viz = new tableau.Viz(vizDiv,vizURL, vizOptions);
+	
+	
+	$.get( "gen_tabsrvkey.aspx", function( data ) {
+		
+	vizURL2 = tabsrvURL +  data	+ vizURL;
+	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
+	
+	
+	});
 	
 	
 }
