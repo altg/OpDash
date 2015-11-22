@@ -5,7 +5,7 @@ var main = function() {
 	
 	vizDiv = $('#viz')[0];
 	
-	tabsrvURL = "http://tabsrv/trusted/"
+	tabsrvURL = "http://tabsrv.idbhq.org/trusted/"
 	
 	current_WB = "";
 	
@@ -75,7 +75,7 @@ var showSheet = function( sheetName ) {
 	}
 	
 	
-	$.get( "gen_tabsrvkey.aspx", function( data ) {
+	$.get( "gen_tabsrvkey2.aspx", function( data ) {
 		
 	vizURL2 = tabsrvURL +  data	+ vizURL;
 	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);

@@ -5,11 +5,11 @@ var main = function() {
 	
 	vizDiv = $('#tableauViz')[0];
 	
-	tabsrvURL = "http://tabsrv/trusted/"
+	tabsrvURL = "http://tabsrv.idbhq.org/trusted/"
 	
 	current_WB = "";
 	
-	vizURL = "/views/OpPlanApprovalsV3/ApprovalsDashNew";
+	//vizURL = "/views/OpPlanApprovalsV3/ApprovalsDashNew";
 	
 	vizOptions = {
 		width: '1169px',
@@ -23,7 +23,7 @@ var main = function() {
 	}
 	
 	
-	$.get( "gen_tabsrvkey.aspx", function( data ) {
+	$.get( "gen_tabsrvkey2.aspx", function( data ) {
 		
 	vizURL2 = tabsrvURL +  data	+ vizURL;
 	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
