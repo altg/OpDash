@@ -23,7 +23,7 @@ var main = function() {
 	}
 	
 	
-	$.get( "gen_tabsrvkey2.aspx", function( data ) {
+	$.get( "gen_tabsrvkey3.cshtml", function( data ) {
 		
 	vizURL2 = tabsrvURL +  data	+ vizURL;
 	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);

@@ -7,7 +7,11 @@ var main = function() {
 	
 	tabsrvURL = "http://tabsrv.idbhq.org/trusted/"
 	
+	tabsrvKeyGen = "gen_tabsrvkey3.cshtml";
+	
 	current_WB = "";
+	
+	new_WB = "";
 	
 	vizURL = "";
 }
@@ -15,6 +19,21 @@ var main = function() {
 var starthereClicked = function()
 {
 	$('#'+current_WB).removeClass( 'active' );
+	
+	
+}
+
+
+var loadviz =  function ( pvizURL ){
+	
+	$.get( tabsrvKeyGen , function( data ) {
+		
+	vizURL2 = tabsrvURL +  data	+ pvizURL;
+	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
+	
+	current_WB = new_WB;
+	
+	});
 	
 	
 }
@@ -74,22 +93,15 @@ var showSheet = function( sheetName ) {
 		}
 	}
 	
-	
-	$.get( "gen_tabsrvkey2.aspx", function( data ) {
-		
-	vizURL2 = tabsrvURL +  data	+ vizURL;
-	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
-	
-	current_WB = new_WB;
-	
-	});
-	
-	
+			
+	loadviz( vizURL );
 	
 	}
 	/* delete viz; */
 	
 }
+
+
 
 
 var showMenuSheet = function( workbookName, sheetName ) {
@@ -135,15 +147,9 @@ var showMenuSheet = function( workbookName, sheetName ) {
 		}
 	}
 	
-	//viz = new tableau.Viz(vizDiv,vizURL, vizOptions);
 	
-	$.get( "gen_tabsrvkey.aspx", function( data ) {
-		
-	vizURL2 = tabsrvURL +  data	+ vizURL;
-	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
 	
-	current_WB = new_WB;
-	});
+	loadviz( vizURL );
 	
 	
 	
@@ -154,13 +160,7 @@ var showMenuSheet = function( workbookName, sheetName ) {
 	
 	}
 	
-	//workbook.activateSheetAsync( sheetName );
-	
-//	workbook = viz.getWorkbook();
-
-	
-	/* delete viz; */
-	
+		
 }
 
 
@@ -175,7 +175,7 @@ var resetViz = function(){
 	//viz = new tableau.Viz(vizDiv,vizURL, vizOptions);
 	
 	
-	$.get( "gen_tabsrvkey.aspx", function( data ) {
+	$.get( tabsrvKeyGen , function( data ) {
 		
 	vizURL2 = tabsrvURL +  data	+ vizURL;
 	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
