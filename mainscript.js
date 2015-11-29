@@ -14,6 +14,8 @@ var main = function() {
 	new_WB = "";
 	
 	vizURL = "";
+	
+	//var clicked;
 }
 
 var starthereClicked = function()
@@ -35,6 +37,53 @@ var loadviz =  function ( pvizURL ){
 	
 	});
 	
+	
+}
+
+
+var showSheet2 = function( menuName , pworkbookName , pvizname  ) {
+	
+	
+	
+	$('#mytopline').hide();
+	
+		
+	$('.main-placeholder').hide();
+	
+	$('li.active').removeClass( 'active' );
+			
+	$('#'+ menuName).addClass( 'active' );
+		
+	vizURL = "/views/" + pworkbookName + "/" + pvizname.replace(/\s/g, '');
+	
+	new_WB=pworkbookName;
+	
+	if ( current_WB != new_WB ){
+	
+	$('#viz').remove();
+	
+	$('.viz-container').append( "<div id='viz'></div>" );
+	
+	vizDiv = $('#viz')[0];
+	
+	vizOptions = {
+		width: '1169px',
+		height: '877px',
+		hideToolbar: true,
+		hideTabs: true,
+		onFirstInteractive: function () {
+		workbook = viz.getWorkbook();
+		activeSheet = workbook.getActiveSheet();
+		$("#ResetBTN").removeClass("disabled");
+		$("#PDFBTN").removeClass("disabled");
+		}
+	}
+	
+			
+	loadviz( vizURL );
+	
+	}
+	/* delete viz; */
 	
 }
 
@@ -162,6 +211,60 @@ var showMenuSheet = function( workbookName, sheetName ) {
 	
 		
 }
+
+var showMenuSheet2 = function( menuName, workbookName, sheetName ) {
+	
+	$('#mytopline').text( sheetName );
+	
+	$('.main-placeholder').hide();
+	
+	$('li.active').removeClass( 'active' );
+	
+	$('#'+menuName).addClass( 'active' );
+	
+		
+	vizURL = "/views/" + workbookName + "/" + sheetName.replace(/\s/g, '');	
+		
+		
+	new_WB = workbookName;	
+	
+	if ( current_WB != new_WB ){
+	
+	$('#viz').remove();
+	
+	$('.viz-container').append( "<div id='viz'></div>" );
+	
+	vizDiv = $('#viz')[0];
+	
+	vizOptions = {
+		width: '1169px',
+		height: '877px',
+		hideToolbar: true,
+		hideTabs: true,
+		onFirstInteractive: function () {
+		workbook = viz.getWorkbook();
+		activeSheet = workbook.activateSheetAsync( sheetName );
+		$("#ResetBTN").removeClass("disabled");
+		$("#PDFBTN").removeClass("disabled");
+		}
+	}
+	
+	
+	
+	loadviz( vizURL );
+	
+	
+	
+	}
+	else{
+		
+	activeSheet = workbook.activateSheetAsync( sheetName );	
+	
+	}
+	
+		
+}
+
 
 
 var resetViz = function(){
