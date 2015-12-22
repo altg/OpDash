@@ -87,130 +87,7 @@ var showSheet2 = function( menuName , pworkbookName , pvizname  ) {
 	
 }
 
-
-var showSheet = function( sheetName ) {
 	
-	//$('#mytopline').text( sheetName );
-	
-	$('#mytopline').hide();
-	
-	//$('#mypageheader').hide();
-	
-	$('.main-placeholder').hide();
-	
-	$('li.active').removeClass( 'active' );
-	
-	$('#'+sheetName).addClass( 'active' );
-	
-	
-	switch(sheetName){
-		
-								  
-		case "Approvals": vizURL = "/views/OpPlanApprovalsV3/ApprovalsDashNew"; break;				  
-						  
-		case "Disbursements": vizURL = "/views/Disbursements1436/DisbDash"; break;
-		
-		case "Portfolio Overview": vizURL= "/views/PortfolioOverview/Overview"; break;
-		
-		case "Detailed Analysis": vizURL= "/views/PortfolioOverview/DetailedAnalysis";break;
-						
-		case "CUC": vizURL= "/views/CUCAnalysis/CUCoverview"; 	break;
-				
-		default:
-	}
-	
-	new_WB=sheetName;
-	
-	if ( current_WB != new_WB ){
-	
-	$('#viz').remove();
-	
-	$('.viz-container').append( "<div id='viz'></div>" );
-	
-	vizDiv = $('#viz')[0];
-	
-	vizOptions = {
-		width: '1169px',
-		height: '877px',
-		hideToolbar: true,
-		hideTabs: true,
-		onFirstInteractive: function () {
-		workbook = viz.getWorkbook();
-		activeSheet = workbook.getActiveSheet();
-		$("#ResetBTN").removeClass("disabled");
-		$("#PDFBTN").removeClass("disabled");
-		}
-	}
-	
-			
-	loadviz( vizURL );
-	
-	}
-	/* delete viz; */
-	
-}
-
-
-
-
-var showMenuSheet = function( workbookName, sheetName ) {
-	
-	$('#mytopline').text( sheetName );
-	
-	$('.main-placeholder').hide();
-	
-	$('li.active').removeClass( 'active' );
-	
-	$('#'+workbookName).addClass( 'active' );
-	
-		
-	switch(workbookName){
-		
-		case "Portfolio": vizURL= "/views/PortfolioOverview/Overview"; break;
-						
-		case "CUC": vizURL= "/views/CUCAnalysis/CUCoverview"; break;
-				
-		default:
-	}
-	
-	new_WB = workbookName;	
-	
-	if ( current_WB != new_WB ){
-	
-	$('#viz').remove();
-	
-	$('.viz-container').append( "<div id='viz'></div>" );
-	
-	vizDiv = $('#viz')[0];
-	
-	vizOptions = {
-		width: '1169px',
-		height: '877px',
-		hideToolbar: true,
-		hideTabs: true,
-		onFirstInteractive: function () {
-		workbook = viz.getWorkbook();
-		activeSheet = workbook.activateSheetAsync( sheetName );
-		$("#ResetBTN").removeClass("disabled");
-		$("#PDFBTN").removeClass("disabled");
-		}
-	}
-	
-	
-	
-	loadviz( vizURL );
-	
-	
-	
-	}
-	else{
-		
-	activeSheet = workbook.activateSheetAsync( sheetName );	
-	
-	}
-	
-		
-}
 
 var showMenuSheet2 = function( menuName, workbookName, sheetName ) {
 	
@@ -317,5 +194,28 @@ var modalClosed = function(){
 	
 	$('.viz-container').append( "<div id='viz'></div>" );
 }
+
+$( "#ResetBTN" ).click( function(){
+
+	resetViz2();
+
+}	
+);
+
+
+$( "a" ).click(function() {
+ // alert( "Handler for " + $(this).attr("id") + " called. " + $(this).attr("workbookname"));
+ 
+ if ($(this).parents().hasClass( "dropdown-menu" )) {
+	showMenuSheet2( $(this).parents( ".dropdown" ).attr( "id" ) , $(this).attr("workbookname") , $(this).attr("vizname") );
+ }
+ else
+ {
+	showSheet2( $(this).attr("id") , $(this).attr("workbookname") , $(this).attr("vizname") );
+ }
+});
+
+
+
 
 $(document).ready(main);
