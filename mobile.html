@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Operations Complex Dashboards">
+    <meta name="author" content="Altaf Abdul Gaffar">
     <link rel="icon" href="favicon.ico">
 
     <title>Operations Complex Dashboards</title>
@@ -52,14 +52,14 @@
         <!-- <div id="navbar" class="collapse navbar-collapse"> -->
 		 <div id="navbar" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
           <ul class="nav navbar-nav">
-            <li><a href="#" id="Approvals"  workbookname="OpPlanApprovalsV3"  vizname="ApprovalsDashNew" >Approvals</a></li>
-			<li><a href="#" id="Disbursements" workbookname="OpDisbursements"  vizname="DisbDash" >Disbursements</a></li>
+            <li id="Approvals"  ><a href="#" onclick="showSheet2('Approvals' , 'OpPlanApprovalsV3' , 'ApprovalsDashNew')">Approvals</a></li>
+			<li  id="Disbursements" ><a href="#" onclick="showSheet2('Disbursements' , 'OpDisbursements' , 'Dashboard1' )">Disbursements</a></li>
            
 			<li class="dropdown" id="Portfolio">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >Portfolio<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#" workbookname="PortfolioOverview"  vizname="Overview" >Overview</a></li>
-                <li><a href="#" workbookname="PortfolioOverview"  vizname="Detailed Analysis" >Detailed Analysis</a></li>
+                <li><a href="#" onclick="showMenuSheet2('Portfolio' , 'PortfolioOverview' , 'Overview')">Overview</a></li>
+                <li><a href="#" onclick="showMenuSheet2('Portfolio' , 'PortfolioOverview' , 'Detailed Analysis' )">Detailed Analysis</a></li>
               </ul>
             </li>
 			
@@ -67,8 +67,8 @@
 			<li class="dropdown" id="CUC">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">CUC<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#" workbookname="CUCAnalysis" vizname="CUC overview" >Overview</a></li>
-                <li><a href="#" workbookname="CUCAnalysis" vizname="CUC Ratios" >CUC Ratios</a></li>
+                <li><a href="#" onclick="showMenuSheet2('CUC' , 'CUCAnalysis' , 'CUC overview')">Overview</a></li>
+                <li><a href="#" onclick="showMenuSheet2('CUC' , 'CUCAnalysis' , 'CUC Ratios')">CUC Ratios</a></li>
               </ul>
             </li>
 			
@@ -81,8 +81,7 @@
               </ul>
             </li>
 								
-			<!-- <li><a href="#" onclick="resetViz2()" class="disabled" id="ResetBTN" >Reset</a></li> -->
-			<li><a href="#" class="disabled" id="ResetBTN" >Reset</a></li>	
+			<li><a href="#" onclick="resetViz2()" class="disabled" id="ResetBTN" >Reset</a></li>	
 			
             <li><a href="#" onclick="ViztoPDF()" class="disabled" id="PDFBTN" >To PDF</a></li>	
 			

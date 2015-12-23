@@ -1,0 +1,55 @@
+@using System.IO;
+@using System.Net;
+@using System.Text;
+
+@{
+
+	
+
+	Random rnd = new Random();
+	int ctr = rnd.Next(0, 4); 
+	 
+	string[] usernames = { "opsd", "agr", "hde" , "inf" ,"opsd" };
+
+	string url = "http://tabsrv.idbhq.org/trusted";
+
+	StringBuilder postData = new  StringBuilder();
+
+	postData.Append("username=" + usernames[ctr]);
+	
+
+	HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+	request.Method = "POST";
+	request.ContentType = "application/x-www-form-urlencoded";
+	
+	request.ContentLength = postData.Length;
+	try
+	{            
+
+		using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+		{
+			writer.Write(postData);
+		}
+
+		HttpWebResponse WebResp = (HttpWebResponse)request.GetResponse();
+			 
+
+		//Now, we read the response (the string), and output it.
+		Stream Answer = WebResp.GetResponseStream();
+		StreamReader _Answer = new StreamReader(Answer);
+		//Console.WriteLine(_Answer.ReadToEnd());
+		Response.Write(_Answer.ReadToEnd());
+		/*Response.Write(" : ");	
+		Response.Write( ctr );
+		Response.Write(" : ");	
+		Response.Write(usernames[ctr]);	 */
+
+	}
+	finally
+	{
+		//if (writer != null)
+			//writer.Close();
+	}
+
+			
+}

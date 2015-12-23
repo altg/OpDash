@@ -5,11 +5,17 @@ var main = function() {
 	
 	vizDiv = $('#viz')[0];
 	
-	tabsrvURL = "http://tabsrv/trusted/"
+	tabsrvURL = "http://tabsrv.idbhq.org/trusted/"
+	
+	tabsrvKeyGen = "gen_tabsrvkey3.cshtml";
 	
 	current_WB = "";
 	
+	new_WB = "";
+	
 	vizURL = "";
+	
+	//var clicked;
 }
 
 var starthereClicked = function()
@@ -20,38 +26,37 @@ var starthereClicked = function()
 }
 
 
-var showSheet = function( sheetName ) {
+var loadviz =  function ( pvizURL ){
 	
-	//$('#mytopline').text( sheetName );
+	$.get( tabsrvKeyGen , function( data ) {
+		
+	vizURL2 = tabsrvURL +  data	+ pvizURL;
+	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
+	
+	current_WB = new_WB;
+	
+	});
+	
+	
+}
+
+
+var showSheet2 = function( menuName , pworkbookName , pvizname  ) {
+	
+	
 	
 	$('#mytopline').hide();
 	
-	//$('#mypageheader').hide();
-	
+		
 	$('.main-placeholder').hide();
 	
 	$('li.active').removeClass( 'active' );
-	
-	$('#'+sheetName).addClass( 'active' );
-	
-	
-	switch(sheetName){
+			
+	$('#'+ menuName).addClass( 'active' );
 		
-								  
-		case "Approvals": vizURL = "/views/OpPlanApprovalsV3/ApprovalsDashNew"; break;				  
-						  
-		case "Disbursements": vizURL = "/views/Disbursements1436/DisbDash"; break;
-		
-		case "Portfolio Overview": vizURL= "/views/PortfolioOverview/Overview"; break;
-		
-		case "Detailed Analysis": vizURL= "/views/PortfolioOverview/DetailedAnalysis";break;
-						
-		case "CUC": vizURL= "/views/CUCAnalysis/CUCoverview"; 	break;
-				
-		default:
-	}
+	vizURL = "/views/" + pworkbookName + "/" + pvizname.replace(/\s/g, '');
 	
-	new_WB=sheetName;
+	new_WB=pworkbookName;
 	
 	if ( current_WB != new_WB ){
 	
@@ -70,28 +75,21 @@ var showSheet = function( sheetName ) {
 		workbook = viz.getWorkbook();
 		activeSheet = workbook.getActiveSheet();
 		$("#ResetBTN").removeClass("disabled");
+		$("#PDFBTN").removeClass("disabled");
 		}
 	}
 	
-	
-	$.get( "gen_tabsrvkey.aspx", function( data ) {
-		
-	vizURL2 = tabsrvURL +  data	+ vizURL;
-	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
-	
-	current_WB = new_WB;
-	
-	});
-	
-	
+			
+	loadviz( vizURL );
 	
 	}
 	/* delete viz; */
 	
 }
 
+	
 
-var showMenuSheet = function( workbookName, sheetName ) {
+var showMenuSheet2 = function( menuName, workbookName, sheetName ) {
 	
 	$('#mytopline').text( sheetName );
 	
@@ -99,18 +97,12 @@ var showMenuSheet = function( workbookName, sheetName ) {
 	
 	$('li.active').removeClass( 'active' );
 	
-	$('#'+workbookName).addClass( 'active' );
+	$('#'+menuName).addClass( 'active' );
 	
 		
-	switch(workbookName){
+	vizURL = "/views/" + workbookName + "/" + sheetName.replace(/\s/g, '');	
 		
-		case "Portfolio": vizURL= "/views/PortfolioOverview/Overview"; break;
-						
-		case "CUC": vizURL= "/views/CUCAnalysis/CUCoverview"; break;
-				
-		default:
-	}
-	
+		
 	new_WB = workbookName;	
 	
 	if ( current_WB != new_WB ){
@@ -130,18 +122,13 @@ var showMenuSheet = function( workbookName, sheetName ) {
 		workbook = viz.getWorkbook();
 		activeSheet = workbook.activateSheetAsync( sheetName );
 		$("#ResetBTN").removeClass("disabled");
+		$("#PDFBTN").removeClass("disabled");
 		}
 	}
 	
-	//viz = new tableau.Viz(vizDiv,vizURL, vizOptions);
 	
-	$.get( "gen_tabsrvkey.aspx", function( data ) {
-		
-	vizURL2 = tabsrvURL +  data	+ vizURL;
-	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
 	
-	current_WB = new_WB;
-	});
+	loadviz( vizURL );
 	
 	
 	
@@ -152,14 +139,9 @@ var showMenuSheet = function( workbookName, sheetName ) {
 	
 	}
 	
-	//workbook.activateSheetAsync( sheetName );
-	
-//	workbook = viz.getWorkbook();
-
-	
-	/* delete viz; */
-	
+		
 }
+
 
 
 var resetViz = function(){
@@ -173,7 +155,7 @@ var resetViz = function(){
 	//viz = new tableau.Viz(vizDiv,vizURL, vizOptions);
 	
 	
-	$.get( "gen_tabsrvkey.aspx", function( data ) {
+	$.get( tabsrvKeyGen , function( data ) {
 		
 	vizURL2 = tabsrvURL +  data	+ vizURL;
 	viz = new tableau.Viz(vizDiv,vizURL2, vizOptions);
@@ -183,6 +165,22 @@ var resetViz = function(){
 	
 	
 }
+
+
+var resetViz2 = function(){
+
+	viz.revertAllAsync();
+
+}
+
+var ViztoPDF = function(){
+	
+	viz.showExportPDFDialog();
+	
+}
+
+
+
 
 var modalClosed = function(){
 	
@@ -196,5 +194,28 @@ var modalClosed = function(){
 	
 	$('.viz-container').append( "<div id='viz'></div>" );
 }
+
+$( "#ResetBTN" ).click( function(){
+
+	resetViz2();
+
+}	
+);
+
+
+$( "a" ).click(function() {
+ // alert( "Handler for " + $(this).attr("id") + " called. " + $(this).attr("workbookname"));
+ 
+ if ($(this).parents().hasClass( "dropdown-menu" )) {
+	showMenuSheet2( $(this).parents( ".dropdown" ).attr( "id" ) , $(this).attr("workbookname") , $(this).attr("vizname") );
+ }
+ else
+ {
+	showSheet2( $(this).attr("id") , $(this).attr("workbookname") , $(this).attr("vizname") );
+ }
+});
+
+
+
 
 $(document).ready(main);
